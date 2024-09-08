@@ -30,3 +30,14 @@ body {
       background-color: #082A63;
       color: white
   }
+
+
+  .marker {
+    width: 0.5%;
+    height:0.5%;
+    bordeR: 1px solid;
+    border-radius: 50%;
+    background-color: black;
+    /* box-shadow: 1px 1px white; */
+  }
+  

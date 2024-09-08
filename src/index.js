@@ -2,6 +2,9 @@ const mapboxgl = require("mapbox-gl");
 const source_line_id = "measure-line-source";
 const layer_line_id = "measure-layer-id";
 import "./style.css";
+const {
+    calculateDistance
+} = require("./utils");
 
 mapboxgl.accessToken = process.env.MAP_ACCESS_TOKEN;
 const MAP_STYLE = process.env.MAP_STYLE;
@@ -88,7 +91,9 @@ function compute_distance(coordinates) {
 
     removeLayers(source_line_id, [layer_line_id]);
     points.push(coordinates);
-    const marker = new mapboxgl.Marker()
+    const markerEl = document.createElement("div");
+    markerEl.className = "marker";
+    const marker = new mapboxgl.Marker(markerEl)
     .setLngLat(coordinates)
     .addTo(map);
     markers.push(marker);
@@ -167,29 +172,6 @@ async function main() {
     });
 }
 
-// Haversine formula to calculate the distance between two points
-function calculateDistance(coord1, coord2) {
-    const R = 6371; // Radius of the Earth in km
-    const lat1 = coord1[1];
-    const lon1 = coord1[0];
-    const lat2 = coord2[1];
-    const lon2 = coord2[0];
 
-    const dLat = degreesToRadians(lat2 - lat1);
-    const dLon = degreesToRadians(lon2 - lon1);
-
-    const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-              Math.cos(degreesToRadians(lat1)) * Math.cos(degreesToRadians(lat2)) *
-              Math.sin(dLon / 2) * Math.sin(dLon / 2);
-
-    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    const distance = R * c; // Distance in km
-
-    return distance;
-}
-
-function degreesToRadians(degrees) {
-    return degrees * (Math.PI / 180);
-}
 
 main();
