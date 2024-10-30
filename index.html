@@ -19,11 +19,20 @@
 
 </head>
 <body>
+
     <div id='map'></div>
+    <div class="playbar">
+        <button id="play-pause">Play</button>
+        <input type="range" id="timeline" min="0" max="100" value="0">
+        <i id="info">info</i>
+    </div>
     <script src="<%= htmlWebpackPlugin.options.publicUrl %>/bundle.js"></script>
     <style>
         body { margin: 0; padding: 0; }
         #map { position: absolute; top: 0; bottom: 0; width: 100%; }
-        </style>
+        .playbar { position: absolute; bottom: 60px; width: 80%; text-align: center; }
+        .playbar input[type="range"] { width: 80%; }
+
+    </style>
   </body>
 </html>
